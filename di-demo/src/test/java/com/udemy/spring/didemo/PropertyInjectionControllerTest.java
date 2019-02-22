@@ -7,7 +7,7 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
-public class PropertInjectionControllerTest {
+public class PropertyInjectionControllerTest {
 
     PropertyInjectionController propertyInjectionController;
 

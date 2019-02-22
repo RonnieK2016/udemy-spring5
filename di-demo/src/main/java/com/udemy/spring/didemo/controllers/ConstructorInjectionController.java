@@ -1,7 +1,9 @@
 package com.udemy.spring.didemo.controllers;
 
 import com.udemy.spring.didemo.services.GreetingsService;
+import org.springframework.stereotype.Controller;
 
+@Controller
 public class ConstructorInjectionController {
 
     private GreetingsService greetingsService;
