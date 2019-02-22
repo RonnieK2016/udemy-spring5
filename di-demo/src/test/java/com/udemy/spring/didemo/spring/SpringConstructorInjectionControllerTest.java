@@ -17,6 +17,6 @@ public class SpringConstructorInjectionControllerTest {
 
     @Test
     public void verifyHelloWorldPrinted() {
-        Assert.assertEquals("Hello World!!!", constructorInjectionController.say());
+        Assert.assertEquals("Howdy World!!!", constructorInjectionController.say());
     }
 }
