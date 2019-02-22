@@ -10,16 +10,16 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @SpringBootTest
-@ActiveProfiles(profiles = "en")
 @RunWith(SpringRunner.class)
-public class MyControllerTest {
+@ActiveProfiles(profiles = "es")
+public class MyControllerSpanishTest {
 
     @Autowired
     private GreetingsService greetingsService;
 
     @Test
-    public void testPrimaryGreetingsIsPrinted() {
-        Assert.assertEquals("Hello from PrimaryGreetingsService!!!", greetingsService.saySomething());
+    public void verifySpanishGreetingsPrinted() {
+        Assert.assertEquals("Hola Mundo!", greetingsService.saySomething());
     }
 
 }
