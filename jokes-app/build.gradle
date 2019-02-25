@@ -15,6 +15,7 @@ repositories {
 
 dependencies {
 	compile group: 'guru.springframework', name: 'chuck-norris-for-actuator', version: '0.0.2'
+    compile project(':computer-jokes-library')
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'

@@ -1,0 +1,9 @@
+<html xmlns:th="http://www.thymeleaf.org/">
+<head><title>Jokes!</title></head>
+<body>
+<h1>Joke of the day:</h1>
+<div th:each="line : ${#strings.arraySplit(joke, '&#10;')}">
+    <p th:text="${line}">Joke here</p>
+</div>
+</body>
+</html>
