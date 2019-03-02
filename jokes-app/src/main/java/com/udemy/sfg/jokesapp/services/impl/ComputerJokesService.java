@@ -11,10 +11,9 @@ public class ComputerJokesService implements JokesService {
 
     private final ComputerJokesSource computerJokesSource;
 
-    public ComputerJokesService() {
-        this.computerJokesSource = new ComputerJokesSource();
+    public ComputerJokesService(ComputerJokesSource computerJokesSource) {
+        this.computerJokesSource = computerJokesSource;
     }
-
 
     @Override
     public String getJoke() {
