@@ -5,6 +5,7 @@ import com.udemy.spring.didemo.controllers.MyController;
 import com.udemy.spring.didemo.controllers.PropertyInjectionController;
 import com.udemy.spring.didemo.controllers.SetterInjectionController;
 import com.udemy.spring.didemo.datasources.FakeDatasource;
+import com.udemy.spring.didemo.jms.FakeJmsProvider;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
@@ -21,8 +22,12 @@ public class DiDemoApplication {
 		System.out.println(context.getBean(ConstructorInjectionController.class).say());
 		System.out.println(context.getBean(SetterInjectionController.class).say());
 
-		FakeDatasource fakeDatasource = (FakeDatasource) context.getBean(FakeDatasource.class);
+		FakeDatasource fakeDatasource = context.getBean(FakeDatasource.class);
 		System.out.println("Username from FakeDatasource - " + fakeDatasource.getUsername());
+
+		FakeJmsProvider fakeJmsProvider = context.getBean(FakeJmsProvider.class);
+		System.out.println("Username from FakeJmsProvider " + fakeJmsProvider.getUserName()
+				+ " for URL " + fakeJmsProvider.getUrl());
 	}
 
 }
