@@ -10,7 +10,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @SpringBootTest
-@ActiveProfiles(profiles = "en")
+@ActiveProfiles(profiles = "default")
 @RunWith(SpringRunner.class)
 public class MyControllerTest {
 

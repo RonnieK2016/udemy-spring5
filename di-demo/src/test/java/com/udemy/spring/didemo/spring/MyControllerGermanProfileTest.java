@@ -12,8 +12,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
-@ActiveProfiles(profiles = "default")
-public class MyControllerDefaultProfileTest {
+@ActiveProfiles(profiles = "de")
+public class MyControllerGermanProfileTest {
 
     @Autowired
     private GreetingsService greetingsService;
