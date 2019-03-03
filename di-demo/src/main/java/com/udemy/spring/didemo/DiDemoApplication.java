@@ -5,6 +5,7 @@ import com.udemy.spring.didemo.controllers.MyController;
 import com.udemy.spring.didemo.controllers.PropertyInjectionController;
 import com.udemy.spring.didemo.controllers.SetterInjectionController;
 import com.udemy.spring.didemo.datasources.FakeDatasource;
+import com.udemy.spring.didemo.email.FakeEmailAccountProvider;
 import com.udemy.spring.didemo.jms.FakeJmsProvider;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -28,6 +29,11 @@ public class DiDemoApplication {
 		FakeJmsProvider fakeJmsProvider = context.getBean(FakeJmsProvider.class);
 		System.out.println("Username from FakeJmsProvider " + fakeJmsProvider.getUserName()
 				+ " for URL " + fakeJmsProvider.getUrl());
+
+		FakeEmailAccountProvider fakeEmailAccountProvider = context.getBean(FakeEmailAccountProvider.class);
+		System.out.println("Configured email to server " + fakeEmailAccountProvider.getServerUrl()
+				+ " with protocol " + fakeEmailAccountProvider.getProtocol()
+				+ " and username " + fakeEmailAccountProvider.getUsername());
 	}
 
 }

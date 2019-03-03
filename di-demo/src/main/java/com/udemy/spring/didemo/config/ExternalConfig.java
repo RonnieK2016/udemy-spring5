@@ -1,6 +1,7 @@
 package com.udemy.spring.didemo.config;
 
 import com.udemy.spring.didemo.datasources.FakeDatasource;
+import com.udemy.spring.didemo.email.FakeEmailAccountProvider;
 import com.udemy.spring.didemo.jms.FakeJmsProvider;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -33,6 +34,16 @@ public class ExternalConfig {
     @Value("${spring.udemy.jms.url}")
     private String jmsUrl;
 
+    @Value("${spring.udemy.email.username}")
+    private String emailUsername;
+
+    @Value("${spring.udemy.email.password}")
+    private String emailPassword;
+    @Value("${spring.udemy.email.url}")
+    private String emailUrl;
+    @Value("${spring.udemy.email.protocol}")
+    private String emailProtocol;
+
     @Bean
     public FakeDatasource getFakeDatasource() {
         FakeDatasource fakeDatasource = new FakeDatasource();
@@ -49,6 +60,16 @@ public class ExternalConfig {
         fakeJmsProvider.setPassword(this.jmsPassword);
         fakeJmsProvider.setUrl(this.jmsUrl);
         return fakeJmsProvider;
+    }
+
+    @Bean
+    public FakeEmailAccountProvider getFakeEmailAccountProvider() {
+        FakeEmailAccountProvider fakeEmailAccountProvider = new FakeEmailAccountProvider();
+        fakeEmailAccountProvider.setUsername(this.emailUsername);
+        fakeEmailAccountProvider.setPassword(this.emailPassword);
+        fakeEmailAccountProvider.setServerUrl(this.emailUrl);
+        fakeEmailAccountProvider.setProtocol(this.emailProtocol);
+        return fakeEmailAccountProvider;
     }
 
 }
