@@ -1,7 +1,14 @@
+udemy:
+  email:
+    username: email-user
+    password: email-password
+    url: test-email.com
+    protocol: pop3
+
+---
 spring:
-  udemy:
-    email:
-      username: email-user
-      password: email-password
-      url: test-email.com
-      protocol: pop3
+  profiles: de
+
+udemy:
+  email:
+    url: test-email.de

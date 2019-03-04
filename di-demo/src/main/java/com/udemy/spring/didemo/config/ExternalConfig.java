@@ -34,14 +34,13 @@ public class ExternalConfig {
     @Value("${spring.udemy.jms.url}")
     private String jmsUrl;
 
-    @Value("${spring.udemy.email.username}")
+    @Value("${udemy.email.username}")
     private String emailUsername;
-
-    @Value("${spring.udemy.email.password}")
+    @Value("${udemy.email.password}")
     private String emailPassword;
-    @Value("${spring.udemy.email.url}")
+    @Value("${udemy.email.url}")
     private String emailUrl;
-    @Value("${spring.udemy.email.protocol}")
+    @Value("${udemy.email.protocol}")
     private String emailProtocol;
 
     @Bean
