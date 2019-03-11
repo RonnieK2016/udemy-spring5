@@ -3,10 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <title>My Recipes</title>
+    <style>
+        table, td, th {
+          border: 1px solid black;
+        }
+    </style>
+
 </head>
 <body>
 <h1>
     My Recipes!
 </h1>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Description</th>
+        <th>Categories</th>
+        <th>Cook Time</th>
+        <th>Prep Time</th>
+        <th>Directions</th>
+        <th>Difficulty</th>
+        <th>Ingredients</th>
+        <th>Notes</th>
+    </tr>
+    <tr th:each="recipe : ${recipes}" style="border: 1px solid;">
+        <td th:text="${recipe.id}">ID</td>
+        <td th:text="${recipe.description}">Description</td>
+        <td th:if="${recipe.categories != null}">
+            <div th:each="category : ${recipe.categories}">
+                <p th:text="${category.description}">Category</p>
+            </div>
+        </td>
+        <td th:text="${recipe.cookTime}">Cook Time</td>
+        <td th:text="${recipe.prepTime}">Prep Time</td>
+        <td th:if="${recipe.directions != null}">
+            <div th:each="line : ${#strings.arraySplit(recipe.directions, '&#10;')}">
+                <p th:text="${line}">1 direction</p>
+            </div>
+        </td>
+        <td th:text="${recipe.difficulty}">Difficulty</td>
+        <td th:if="${recipe.ingredients != null}">
+            <div th:each="ingredient : ${recipe.ingredients}">
+                <p th:text="${ingredient.description} + ': ' +${ingredient.amount} + ' ' + ${ingredient.unitOfMeasure.description} ">Ingredient</p>
+            </div>
+        </td>
+        <td th:if="${recipe.notes != null}">
+            <div th:each="line : ${#strings.arraySplit(recipe.notes.recipeNotes, '&#10;')}">
+                <p th:text="${line}">1 note</p>
+            </div>
+        </td>
+    </tr>
+</table>
 </body>
 </html>

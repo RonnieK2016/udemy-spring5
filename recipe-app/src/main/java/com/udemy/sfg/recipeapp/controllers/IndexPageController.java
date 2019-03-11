@@ -1,33 +1,22 @@
 package com.udemy.sfg.recipeapp.controllers;
 
-import com.udemy.sfg.recipeapp.domain.Category;
-import com.udemy.sfg.recipeapp.domain.UnitOfMeasure;
-import com.udemy.sfg.recipeapp.repositories.CategoryRepository;
-import com.udemy.sfg.recipeapp.repositories.UnitOfMeasureRepository;
+import com.udemy.sfg.recipeapp.services.RecipeService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.Optional;
 
 @Controller
 public class IndexPageController {
 
-    private final CategoryRepository categoryRepository;
-    private final UnitOfMeasureRepository unitOfMeasureRepository;
+    private final RecipeService recipeService;
 
-    public IndexPageController(CategoryRepository categoryRepository, UnitOfMeasureRepository unitOfMeasureRepository) {
-        this.categoryRepository = categoryRepository;
-        this.unitOfMeasureRepository = unitOfMeasureRepository;
+    public IndexPageController(RecipeService recipeService) {
+        this.recipeService = recipeService;
     }
 
     @RequestMapping({"","/","/index"})
-    public String getIndexPage() {
-
-        Optional<Category> category = categoryRepository.findByDescription("Italian");
-        Optional<UnitOfMeasure> unitOfMeasure = unitOfMeasureRepository.findByDescription("Pinch");
-
-        System.out.println("Category ID: " + category.get().getId());
-        System.out.println("UOM ID: " + unitOfMeasure.get().getId());
+    public String getIndexPage(Model model) {
+        model.addAttribute("recipes", recipeService.getAllRecipes());
 
         return "index";
     }
