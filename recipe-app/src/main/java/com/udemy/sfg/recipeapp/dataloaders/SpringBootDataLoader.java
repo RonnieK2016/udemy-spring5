@@ -4,6 +4,7 @@ import com.udemy.sfg.recipeapp.domain.*;
 import com.udemy.sfg.recipeapp.repositories.CategoryRepository;
 import com.udemy.sfg.recipeapp.repositories.RecipeRepository;
 import com.udemy.sfg.recipeapp.repositories.UnitOfMeasureRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
@@ -13,6 +14,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Component
+@Slf4j
 public class SpringBootDataLoader implements ApplicationListener<ContextRefreshedEvent> {
 
     private final RecipeRepository recipeRepository;
@@ -31,6 +33,9 @@ public class SpringBootDataLoader implements ApplicationListener<ContextRefreshe
     }
 
     private void loadData() {
+
+        log.debug("Staring loadData on bootstrap");
+
         Recipe recipe = new Recipe();
         recipe.setDescription("Perfect Guacamole");
         recipe.setCookTime(1);
@@ -108,6 +113,6 @@ public class SpringBootDataLoader implements ApplicationListener<ContextRefreshe
 
         recipeRepository.save(recipe);
 
-        System.out.println("Recipe saved!");
+        log.info("Recipe saved!");
     }
 }
