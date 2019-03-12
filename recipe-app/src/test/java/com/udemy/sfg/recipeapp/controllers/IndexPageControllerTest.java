@@ -28,7 +28,7 @@ public class IndexPageControllerTest {
     @Test
     public void getIndexPage() {
         assertEquals("index", indexPageController.getIndexPage(model));
-        verify(model, times(1)).addAttribute("recipes", recipeService.getAllRecipes());
-        verify(recipeService, times(2)).getAllRecipes();
+        verify(model, times(1)).addAttribute("recipes", anySet());
+        verify(recipeService, times(1)).getAllRecipes();
     }
 }
