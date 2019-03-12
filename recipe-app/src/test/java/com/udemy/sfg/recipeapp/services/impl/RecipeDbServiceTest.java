@@ -1,6 +1,5 @@
 package com.udemy.sfg.recipeapp.services.impl;
 
-import com.sun.org.apache.regexp.internal.RE;
 import com.udemy.sfg.recipeapp.domain.Recipe;
 import com.udemy.sfg.recipeapp.repositories.RecipeRepository;
 import com.udemy.sfg.recipeapp.services.RecipeService;
@@ -8,8 +7,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-
-import javax.sound.midi.Receiver;
 
 import java.util.HashSet;
 import java.util.Set;
