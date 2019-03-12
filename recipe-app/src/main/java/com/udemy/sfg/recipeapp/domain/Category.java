@@ -1,16 +1,14 @@
 package com.udemy.sfg.recipeapp.domain;
 
-import lombok.Getter;
-import lombok.Setter;
-import org.hibernate.annotations.Proxy;
-
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Getter
-@Setter
+@Data
+@EqualsAndHashCode(exclude = "recipes")
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

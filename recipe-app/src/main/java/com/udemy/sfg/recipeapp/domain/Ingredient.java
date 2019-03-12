@@ -1,14 +1,14 @@
 package com.udemy.sfg.recipeapp.domain;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 
-@Getter
-@Setter
 @Entity
+@Data
+@EqualsAndHashCode(exclude = {"recipe"})
 public class Ingredient {
 
     @Id
