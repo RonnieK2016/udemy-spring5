@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -27,5 +28,15 @@ public class RecipeDbService implements RecipeService {
         log.debug("Getting all recipes {} ", recipes.size());
 
         return recipes;
+    }
+
+    @Override
+    public Recipe getById(Long id) {
+        Optional<Recipe> recipe = recipeRepository.findById(id);
+        if(!recipe.isPresent()) {
+            throw new RuntimeException("Recipe is not found by ID " + id);
+        }
+
+        return recipe.get();
     }
 }

@@ -1,14 +1,16 @@
 package com.udemy.sfg.recipeapp.domain;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CategoryTest {
 
     private Category category;
 
-    @Before
+    @BeforeEach
     public void createCategory() {
         category = new Category();
     }
@@ -17,7 +19,7 @@ public class CategoryTest {
     public void getId() {
         Long id = 1L;
         category.setId(id);
-        Assert.assertEquals(id, category.getId());
+        assertEquals(id, category.getId());
     }
 
     @Test
