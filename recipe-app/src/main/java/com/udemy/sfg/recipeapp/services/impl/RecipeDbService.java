@@ -37,7 +37,8 @@ public class RecipeDbService implements RecipeService {
     public Recipe getById(Long id) {
         Optional<Recipe> recipe = recipeRepository.findById(id);
         if(!recipe.isPresent()) {
-            throw new RuntimeException("Recipe is not found by ID " + id);
+            log.error("Recipe is not found by ID {} ", id);
+            return null;
         }
 
         return recipe.get();
