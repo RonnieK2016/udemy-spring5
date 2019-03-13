@@ -1,11 +1,12 @@
 package com.udemy.sfg.recipeapp.controllers;
 
+import com.udemy.sfg.recipeapp.commands.IngredientCommand;
 import com.udemy.sfg.recipeapp.commands.RecipeCommand;
+import com.udemy.sfg.recipeapp.services.IngredientCommandService;
 import com.udemy.sfg.recipeapp.services.RecipeCommandService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.web.servlet.MockMvc;
@@ -22,6 +23,8 @@ class IngredientControllerTest {
 
     @Mock
     private RecipeCommandService recipeCommandService;
+    @Mock
+    private IngredientCommandService ingredientCommandService;
 
     private IngredientController ingredientController;
 
@@ -29,7 +32,7 @@ class IngredientControllerTest {
 
     @BeforeEach
     void setUp() {
-        ingredientController = new IngredientController(recipeCommandService);
+        ingredientController = new IngredientController(recipeCommandService, ingredientCommandService);
         mockMvc = MockMvcBuilders.standaloneSetup(ingredientController).build();
     }
 
@@ -44,5 +47,16 @@ class IngredientControllerTest {
                 .andExpect(model().attributeExists("recipe"));
 
         verify(recipeCommandService).findRecipeCommandById(anyLong());
+    }
+
+    @Test
+    void viewIngredientById() throws Exception {
+        when(ingredientCommandService.findByRecipeIdAndIngredientId(anyLong(), anyLong())).thenReturn(new IngredientCommand());
+
+        mockMvc.perform(get("/recipe/1/ingredient/2/show"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("recipe/ingredient/show"))
+                .andExpect(model().attributeExists("ingredient"));
+        verify(ingredientCommandService).findByRecipeIdAndIngredientId(anyLong(), anyLong());
     }
 }
