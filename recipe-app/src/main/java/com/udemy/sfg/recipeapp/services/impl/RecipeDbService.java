@@ -1,5 +1,8 @@
 package com.udemy.sfg.recipeapp.services.impl;
 
+import com.udemy.sfg.recipeapp.commands.RecipeCommand;
+import com.udemy.sfg.recipeapp.converters.RecipeCommandToRecipe;
+import com.udemy.sfg.recipeapp.converters.RecipeToRecipeCommand;
 import com.udemy.sfg.recipeapp.domain.Recipe;
 import com.udemy.sfg.recipeapp.repositories.RecipeRepository;
 import com.udemy.sfg.recipeapp.services.RecipeService;
@@ -15,9 +18,15 @@ import java.util.Set;
 public class RecipeDbService implements RecipeService {
 
     private final RecipeRepository recipeRepository;
+    private final RecipeCommandToRecipe recipeCommandToRecipe;
+    private final RecipeToRecipeCommand recipeToRecipeCommand;
 
-    public RecipeDbService(RecipeRepository recipeRepository) {
+    public RecipeDbService(RecipeRepository recipeRepository,
+                           RecipeCommandToRecipe recipeCommandToRecipe,
+                           RecipeToRecipeCommand recipeToRecipeCommand) {
         this.recipeRepository = recipeRepository;
+        this.recipeCommandToRecipe = recipeCommandToRecipe;
+        this.recipeToRecipeCommand = recipeToRecipeCommand;
     }
 
     @Override
@@ -38,5 +47,14 @@ public class RecipeDbService implements RecipeService {
         }
 
         return recipe.get();
+    }
+
+    @Override
+    public RecipeCommand saveRecipeCommand(RecipeCommand command) {
+        Recipe detachedRecipe = recipeCommandToRecipe.convert(command);
+
+        Recipe savedRecipe = recipeRepository.save(detachedRecipe);
+        log.debug("Saved RecipeId:" + savedRecipe.getId());
+        return recipeToRecipeCommand.convert(savedRecipe);
     }
 }

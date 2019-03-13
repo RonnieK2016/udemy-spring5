@@ -1,5 +1,7 @@
 package com.udemy.sfg.recipeapp.services.impl;
 
+import com.udemy.sfg.recipeapp.converters.RecipeCommandToRecipe;
+import com.udemy.sfg.recipeapp.converters.RecipeToRecipeCommand;
 import com.udemy.sfg.recipeapp.domain.Recipe;
 import com.udemy.sfg.recipeapp.repositories.RecipeRepository;
 import com.udemy.sfg.recipeapp.services.RecipeService;
@@ -18,12 +20,17 @@ public class RecipeDbServiceTest {
 
     @Mock
     private RecipeRepository recipeRepository;
+    @Mock
+    private RecipeToRecipeCommand recipeToRecipeCommand;
+    @Mock
+    private RecipeCommandToRecipe recipeCommandToRecipe;
+
     private RecipeService recipeService;
 
     @BeforeEach
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        recipeService = new RecipeDbService(recipeRepository);
+        recipeService = new RecipeDbService(recipeRepository, recipeCommandToRecipe, recipeToRecipeCommand);
     }
 
     @Test

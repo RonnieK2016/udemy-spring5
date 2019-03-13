@@ -25,7 +25,7 @@ public class Recipe {
     @Lob
     private Byte[] image;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
-    private Set<Ingredient> ingredients;
+    private Set<Ingredient> ingredients = new HashSet<>();
     @OneToOne(cascade = CascadeType.ALL)
     private Notes notes;
     @Enumerated(value = EnumType.STRING)
