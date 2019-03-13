@@ -17,7 +17,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @ExtendWith(MockitoExtension.class)
-public class RecipeControllerTest {
+class RecipeControllerTest {
 
     @Mock
     private RecipeService recipeService;
@@ -27,19 +27,19 @@ public class RecipeControllerTest {
     private MockMvc mockMvc;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         mockMvc = MockMvcBuilders.standaloneSetup(recipeController).build();
     }
 
     @Test
-    public void showRecipe() throws Exception {
+    void showRecipe() throws Exception {
         Recipe recipe = new Recipe();
         recipe.setId(1L);
         when(recipeService.getById(anyLong())).thenReturn(recipe);
 
-        mockMvc.perform(get("/recipe/show/1"))
+        mockMvc.perform(get("/recipe/1/show/"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("show_recipe"))
+                .andExpect(view().name("recipe/show_recipe"))
                 .andExpect(model().attributeExists("recipe"));
 
         verify(recipeService, times(1)).getById(anyLong());

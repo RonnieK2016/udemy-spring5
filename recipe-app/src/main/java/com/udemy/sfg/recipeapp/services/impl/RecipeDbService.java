@@ -18,15 +18,9 @@ import java.util.Set;
 public class RecipeDbService implements RecipeService {
 
     private final RecipeRepository recipeRepository;
-    private final RecipeCommandToRecipe recipeCommandToRecipe;
-    private final RecipeToRecipeCommand recipeToRecipeCommand;
 
-    public RecipeDbService(RecipeRepository recipeRepository,
-                           RecipeCommandToRecipe recipeCommandToRecipe,
-                           RecipeToRecipeCommand recipeToRecipeCommand) {
+    public RecipeDbService(RecipeRepository recipeRepository) {
         this.recipeRepository = recipeRepository;
-        this.recipeCommandToRecipe = recipeCommandToRecipe;
-        this.recipeToRecipeCommand = recipeToRecipeCommand;
     }
 
     @Override
@@ -50,11 +44,9 @@ public class RecipeDbService implements RecipeService {
     }
 
     @Override
-    public RecipeCommand saveRecipeCommand(RecipeCommand command) {
-        Recipe detachedRecipe = recipeCommandToRecipe.convert(command);
-
-        Recipe savedRecipe = recipeRepository.save(detachedRecipe);
+    public Recipe saveRecipe(Recipe recipe) {
+        Recipe savedRecipe = recipeRepository.save(recipe);
         log.debug("Saved RecipeId:" + savedRecipe.getId());
-        return recipeToRecipeCommand.convert(savedRecipe);
+        return savedRecipe;
     }
 }

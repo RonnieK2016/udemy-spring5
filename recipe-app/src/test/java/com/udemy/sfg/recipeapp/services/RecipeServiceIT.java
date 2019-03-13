@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
-public class RecipeServiceIT {
+class RecipeServiceIT {
 
     private static final String NEW_DESCRIPTION = "New Description";
 
@@ -29,7 +29,7 @@ public class RecipeServiceIT {
     private RecipeService recipeService;
 
     @Autowired
-    private RecipeRepository recipeRepository;
+    private RecipeCommandService recipeCommandService;
 
     @Autowired
     private RecipeCommandToRecipe recipeCommandToRecipe;
@@ -50,7 +50,7 @@ public class RecipeServiceIT {
 
         //when
         testRecipeCommand.setDescription(NEW_DESCRIPTION);
-        RecipeCommand savedRecipeCommand = recipeService.saveRecipeCommand(testRecipeCommand);
+        RecipeCommand savedRecipeCommand = recipeCommandService.saveRecipeCommand(testRecipeCommand);
 
         //then
         assertEquals(NEW_DESCRIPTION, savedRecipeCommand.getDescription());

@@ -16,25 +16,21 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
-public class RecipeDbServiceTest {
+class RecipeDbServiceTest {
 
     @Mock
     private RecipeRepository recipeRepository;
-    @Mock
-    private RecipeToRecipeCommand recipeToRecipeCommand;
-    @Mock
-    private RecipeCommandToRecipe recipeCommandToRecipe;
 
     private RecipeService recipeService;
 
     @BeforeEach
-    public void setUp() throws Exception {
+    void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        recipeService = new RecipeDbService(recipeRepository, recipeCommandToRecipe, recipeToRecipeCommand);
+        recipeService = new RecipeDbService(recipeRepository);
     }
 
     @Test
-    public void getAllRecipes() {
+    void getAllRecipes() {
         Recipe recipe = new Recipe();
         Set<Recipe> data = new HashSet<>();
         data.add(recipe);
