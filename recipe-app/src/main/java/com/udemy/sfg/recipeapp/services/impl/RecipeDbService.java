@@ -49,4 +49,10 @@ public class RecipeDbService implements RecipeService {
         log.debug("Saved RecipeId:" + savedRecipe.getId());
         return savedRecipe;
     }
+
+    @Override
+    public void deleteById(Long id) {
+        recipeRepository.deleteById(id);
+        log.debug("Recipe with id - {} - deleted", id);
+    }
 }
