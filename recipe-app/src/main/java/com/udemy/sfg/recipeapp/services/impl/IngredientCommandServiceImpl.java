@@ -11,6 +11,8 @@ import com.udemy.sfg.recipeapp.services.RecipeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
+
 @Service
 @Slf4j
 public class IngredientCommandServiceImpl implements IngredientCommandService {
@@ -54,7 +56,7 @@ public class IngredientCommandServiceImpl implements IngredientCommandService {
         Recipe recipe = recipeService.getById(command.getRecipeId());
 
         if(recipe == null){
-            log.error("Recipe not found for id: " + command.getRecipeId());
+            log.error("Recipe not found for id: {}", command.getRecipeId());
             return new IngredientCommand();
         }
         else {
@@ -94,5 +96,24 @@ public class IngredientCommandServiceImpl implements IngredientCommandService {
                 .filter(recipeIngredients -> recipeIngredients.getDescription().equals(command.getDescription()))
                 .findFirst()
                 .get());
+    }
+
+    @Override
+    public void deleteIngredientByRecipeIdAndIngredientId(Long recipeId, Long ingredientId) {
+        Recipe recipe = recipeService.getById(recipeId);
+
+        if(recipe == null){
+            throw new RuntimeException("Recipe not found for id: " + recipeId);
+        }
+
+        Ingredient ingredient =
+                recipe.getIngredients().stream().filter(ingredient1 -> ingredientId.equals(ingredient1.getId()))
+                        .findFirst().orElse(null);
+
+        if(ingredient != null) {
+            recipe.getIngredients().remove(ingredient);
+            ingredient.setRecipe(null);
+            recipeService.saveRecipe(recipe);
+        }
     }
 }
