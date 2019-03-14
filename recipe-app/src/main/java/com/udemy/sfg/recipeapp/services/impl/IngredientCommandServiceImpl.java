@@ -61,7 +61,9 @@ public class IngredientCommandServiceImpl implements IngredientCommandService {
 
             // new ingredient case
             if(command.getId() == null) {
-                recipe.getIngredients().add(ingredientCommandToIngredient.convert(command));
+                Ingredient ingredient = ingredientCommandToIngredient.convert(command);
+                ingredient.setRecipe(recipe);
+                recipe.getIngredients().add(ingredient);
             }
             else
             {
@@ -78,7 +80,9 @@ public class IngredientCommandServiceImpl implements IngredientCommandService {
                             .orElseThrow(() -> new RuntimeException("UOM NOT FOUND")));
                 }
                 else {
-                    recipe.getIngredients().add(ingredientCommandToIngredient.convert(command));
+                    Ingredient ingredient = ingredientCommandToIngredient.convert(command);
+                    ingredient.setRecipe(recipe);
+                    recipe.getIngredients().add(ingredient);
                 }
             }
         }
@@ -87,7 +91,7 @@ public class IngredientCommandServiceImpl implements IngredientCommandService {
 
         //to do check for fail
         return ingredientToIngredientCommand.convert(savedRecipe.getIngredients().stream()
-                .filter(recipeIngredients -> recipeIngredients.getId().equals(command.getId()))
+                .filter(recipeIngredients -> recipeIngredients.getDescription().equals(command.getDescription()))
                 .findFirst()
                 .get());
     }

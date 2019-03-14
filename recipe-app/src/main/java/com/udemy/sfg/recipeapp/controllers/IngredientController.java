@@ -1,6 +1,7 @@
 package com.udemy.sfg.recipeapp.controllers;
 
 import com.udemy.sfg.recipeapp.commands.IngredientCommand;
+import com.udemy.sfg.recipeapp.commands.UnitOfMeasureCommand;
 import com.udemy.sfg.recipeapp.services.IngredientCommandService;
 import com.udemy.sfg.recipeapp.services.RecipeCommandService;
 import com.udemy.sfg.recipeapp.services.UnitOfMeasureCommandService;
@@ -54,6 +55,17 @@ public class IngredientController {
         model.addAttribute("uomList", unitOfMeasureCommandService.getAllUoms());
         model.addAttribute("ingredient", ingredientCommandService.findByRecipeIdAndIngredientId(recipeId, ingredientId));
 
+        return "recipe/ingredient/ingredientform";
+    }
+
+    @GetMapping
+    @RequestMapping("recipe/{recipeId}/ingredient/new")
+    public String createNewRecipeIngredient(@PathVariable Long recipeId, Model model) {
+        model.addAttribute("uomList", unitOfMeasureCommandService.getAllUoms());
+        IngredientCommand command = new IngredientCommand();
+        command.setRecipeId(recipeId);
+        command.setUnitOfMeasure(new UnitOfMeasureCommand());
+        model.addAttribute("ingredient", command);
         return "recipe/ingredient/ingredientform";
     }
 
