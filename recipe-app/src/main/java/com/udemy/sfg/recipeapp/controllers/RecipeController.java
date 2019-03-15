@@ -2,13 +2,18 @@ package com.udemy.sfg.recipeapp.controllers;
 
 import com.udemy.sfg.recipeapp.commands.RecipeCommand;
 import com.udemy.sfg.recipeapp.domain.Recipe;
+import com.udemy.sfg.recipeapp.exceptions.NotFoundException;
 import com.udemy.sfg.recipeapp.services.RecipeCommandService;
 import com.udemy.sfg.recipeapp.services.RecipeService;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
+@Slf4j
 public class RecipeController {
 
     private RecipeService recipeService;
@@ -55,5 +60,16 @@ public class RecipeController {
     public String addOrUpdateRecipe(@ModelAttribute RecipeCommand recipeCommand) {
         RecipeCommand savedCommand = recipeCommandService.saveRecipeCommand(recipeCommand);
         return "redirect:/recipe/" + savedCommand.getId() + "/show";
+    }
+
+    @ExceptionHandler(NotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ModelAndView handleNotFoundException() {
+
+        log.error("Handling NotFoundException");
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("404");
+        return modelAndView;
     }
 }
