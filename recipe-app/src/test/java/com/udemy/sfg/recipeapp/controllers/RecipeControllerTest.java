@@ -2,6 +2,7 @@ package com.udemy.sfg.recipeapp.controllers;
 
 import com.udemy.sfg.recipeapp.commands.RecipeCommand;
 import com.udemy.sfg.recipeapp.domain.Recipe;
+import com.udemy.sfg.recipeapp.exceptions.NotFoundException;
 import com.udemy.sfg.recipeapp.services.RecipeCommandService;
 import com.udemy.sfg.recipeapp.services.RecipeService;
 import org.junit.jupiter.api.BeforeEach;
@@ -96,5 +97,12 @@ class RecipeControllerTest {
                 .andExpect(view().name("redirect:/"));
 
         verify(recipeService, times(1)).deleteById(anyLong());
+    }
+
+    @Test
+    void testRecipeNotFound() throws Exception {
+        when(recipeService.getById(anyLong())).thenThrow(NotFoundException.class);
+        mockMvc.perform(get("/recipe/1/show/")).andExpect(status().isNotFound());
+        verify(recipeService).getById(anyLong());
     }
 }

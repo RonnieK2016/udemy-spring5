@@ -4,6 +4,7 @@ import com.udemy.sfg.recipeapp.commands.RecipeCommand;
 import com.udemy.sfg.recipeapp.converters.RecipeCommandToRecipe;
 import com.udemy.sfg.recipeapp.converters.RecipeToRecipeCommand;
 import com.udemy.sfg.recipeapp.domain.Recipe;
+import com.udemy.sfg.recipeapp.exceptions.NotFoundException;
 import com.udemy.sfg.recipeapp.repositories.RecipeRepository;
 import com.udemy.sfg.recipeapp.services.RecipeService;
 import lombok.extern.slf4j.Slf4j;
@@ -37,8 +38,7 @@ public class RecipeDbService implements RecipeService {
     public Recipe getById(Long id) {
         Optional<Recipe> recipe = recipeRepository.findById(id);
         if(!recipe.isPresent()) {
-            log.error("Recipe is not found by ID {} ", id);
-            return null;
+            throw  new NotFoundException("Recipe is not found by ID " + id);
         }
 
         return recipe.get();

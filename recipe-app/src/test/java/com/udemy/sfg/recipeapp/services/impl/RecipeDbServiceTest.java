@@ -4,12 +4,13 @@ import com.udemy.sfg.recipeapp.commands.RecipeCommand;
 import com.udemy.sfg.recipeapp.converters.RecipeCommandToRecipe;
 import com.udemy.sfg.recipeapp.converters.RecipeToRecipeCommand;
 import com.udemy.sfg.recipeapp.domain.Recipe;
+import com.udemy.sfg.recipeapp.exceptions.NotFoundException;
 import com.udemy.sfg.recipeapp.repositories.RecipeRepository;
 import com.udemy.sfg.recipeapp.services.RecipeCommandService;
 import com.udemy.sfg.recipeapp.services.RecipeService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
+import org.junit.jupiter.api.function.Executable;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -17,8 +18,7 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class RecipeDbServiceTest {
@@ -106,5 +106,10 @@ class RecipeDbServiceTest {
 
         //then
         verify(recipeRepository, times(1)).deleteById(anyLong());
+    }
+
+    @Test
+    void testRecipeNotFoundException() {
+        assertThrows(NotFoundException.class, () -> recipeService.getById(2L));
     }
 }
